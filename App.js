@@ -1,15 +1,26 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, StyleSheet, Text, View, Image } from 'react-native';
+import {
+  TouchableOpacity,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ScrollView
+} from 'react-native';
 import { AuthSession } from 'expo';
 import { FontAwesome } from '@expo/vector-icons';
 import axios from 'axios';
+import SpotifyWebApi from 'spotify-web-api-js';
+
+const spotifyApi = new SpotifyWebApi();
 
 const CLIENT_ID = '272d15472aa64a7fb339848f6db57257';
 
 export default class App extends Component {
   state = {
     userInfo: null,
-    didError: false
+    didError: false,
+    songNames: ''
   };
 
   handleSpotifyLogin = async () => {
@@ -29,6 +40,18 @@ export default class App extends Component {
         }
       });
       this.setState({ userInfo: userInfo.data });
+
+      const songNames = await axios.get(
+        `https://api.spotify.com/v1/tracks/6rqhFgbbKwnb9MLmUQDhG6`,
+        {
+          headers: {
+            Authorization: `Bearer ${results.params.access_token}`
+          }
+        }
+      );
+
+      this.setState({ songNames: songNames.data });
+      this.biisit();
     }
   };
 
@@ -43,31 +66,66 @@ export default class App extends Component {
   };
 
   //
+  biisit = () => {
+    return this.state.songNames(
+      <View>
+        <Text>aaaaa</Text>
+      </View>
+    );
+  };
+
   displayResults = () => {
     {
-      return this.state.userInfo ? (
-        <View style={styles.userInfo}>
-          <Image
-            style={styles.profileImage}
-            source={{ uri: this.state.userInfo.images.url }}
-          />
-          <View>
-            <Text style={styles.userInfoText}>Username:</Text>
-            <Text style={styles.userInfoText}>{this.state.userInfo.id}</Text>
-            <Text style={styles.userInfoText}>Email:</Text>
-            <Text style={styles.userInfoText}>{this.state.userInfo.email}</Text>
-            <Text style={styles.userInfoText}>display_name:</Text>
+      return (
+        this.state.songNames,
+        this.state.userInfo ? (
+          <View style={styles.userInfo}>
+            <Image
+              style={styles.profileImage}
+              source={{ uri: this.state.userInfo.images.url }}
+            />
+            <ScrollView>
+              <Text style={styles.userInfoText}>Username: {'\n'}</Text>
+              <Text style={styles.userInfoText}>{this.state.userInfo.id}</Text>
+              <Text style={styles.userInfoText}>Email: {'\n'}</Text>
+              <Text style={styles.userInfoText}>
+                {this.state.userInfo.email}
+              </Text>
+              <Text style={styles.userInfoText}>display_name: {'\n'}</Text>
+              <Text style={styles.userInfoText}>
+                {this.state.userInfo.display_name}
+              </Text>
+              <Text style={styles.userInfoText}>Product: {'\n'}</Text>
+              <Text style={styles.userInfoText}>
+                {this.state.userInfo.href}
+              </Text>
+              <Text style={styles.userInfoText}>song.id: {'\n'}</Text>
+
+              <Text style={styles.userInfoText}>
+                {' '}
+                {'\n'} {this.state.songNames.id}
+              </Text>
+              <Text style={styles.userInfoText}>
+                {'\n'}
+                <Text style={styles.userInfoText}>Album type:</Text>
+
+                {this.state.songNames.album_type}
+              </Text>
+
+              <Text style={styles.userInfoText}>
+                {'\n'}
+                Popularity: {'\n'}
+                {this.state.songNames.popularity}
+              </Text>
+            </ScrollView>
+          </View>
+        ) : (
+          <View style={styles.userInfo}>
             <Text style={styles.userInfoText}>
-              {this.state.userInfo.display_name}
+              Login to Spotify to see user data.
             </Text>
           </View>
-        </View>
-      ) : (
-        <View style={styles.userInfo}>
-          <Text style={styles.userInfoText}>
-            Login to Spotify to see user data.
-          </Text>
-        </View>
+        )
       );
     }
   };
