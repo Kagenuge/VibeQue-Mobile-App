@@ -11,6 +11,7 @@ import { AuthSession } from 'expo';
 import { FontAwesome } from '@expo/vector-icons';
 import axios from 'axios';
 import SpotifyWebApi from 'spotify-web-api-js';
+//
 
 const spotifyApi = new SpotifyWebApi();
 
