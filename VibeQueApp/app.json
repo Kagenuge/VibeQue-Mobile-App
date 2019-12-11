@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "VibeQue",
-    "slug": "VibeQueApp",
+    "name": "vibeque",
+    "slug": "vibeque-app",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
