@@ -15,7 +15,7 @@ import SpotifyWebApi from 'spotify-web-api-js';
 
 const spotifyApi = new SpotifyWebApi();
 
-const CLIENT_ID = '';
+const CLIENT_ID = '272d15472aa64a7fb339848f6db57257';
 
 export default class App extends Component {
   state = {
@@ -52,7 +52,6 @@ export default class App extends Component {
       );
 
       this.setState({ songNames: songNames.data });
-      this.biisit();
     }
   };
 
@@ -67,13 +66,6 @@ export default class App extends Component {
   };
 
   //
-  biisit = () => {
-    return this.state.songNames(
-      <View>
-        <Text>aaaaa</Text>
-      </View>
-    );
-  };
 
   displayResults = () => {
     {
