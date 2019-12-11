@@ -48,13 +48,17 @@ export default class App extends Component {
         <View style={styles.userInfo}>
           <Image
             style={styles.profileImage}
-            source={{ uri: this.state.userInfo.images[0].url }}
+            source={{ uri: this.state.userInfo.images.url }}
           />
           <View>
             <Text style={styles.userInfoText}>Username:</Text>
             <Text style={styles.userInfoText}>{this.state.userInfo.id}</Text>
             <Text style={styles.userInfoText}>Email:</Text>
             <Text style={styles.userInfoText}>{this.state.userInfo.email}</Text>
+            <Text style={styles.userInfoText}>display_name:</Text>
+            <Text style={styles.userInfoText}>
+              {this.state.userInfo.display_name}
+            </Text>
           </View>
         </View>
       ) : (
