@@ -15,7 +15,7 @@ import SpotifyWebApi from 'spotify-web-api-js';
 
 const spotifyApi = new SpotifyWebApi();
 
-const CLIENT_ID = '272d15472aa64a7fb339848f6db57257';
+const CLIENT_ID = '';
 
 export default class App extends Component {
   state = {
