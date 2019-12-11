@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, View, Image } from 'react-native';
 import { AuthSession } from 'expo';
 import { FontAwesome } from '@expo/vector-icons';
+import axios from 'axios';
 
-const CLIENT_ID = '';
+const CLIENT_ID = '272d15472aa64a7fb339848f6db57257';
 
 export default class App extends Component {
   state = {
