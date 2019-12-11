@@ -42,6 +42,7 @@ export default class App extends Component {
     );
   };
 
+  //
   displayResults = () => {
     {
       return this.state.userInfo ? (
