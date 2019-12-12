@@ -15,7 +15,7 @@ export default class SearchButton extends Component {
     return (
       <View style={styles.container}>
         <TextInput
-          style={{ height: 40 }}
+          style={{ height: 40, color: 'green' }}
           placeholder='Enter your song'
           onChangeText={text => this.setState({ text })}
           value={this.state.text}

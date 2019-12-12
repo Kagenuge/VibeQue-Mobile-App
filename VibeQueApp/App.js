@@ -12,6 +12,7 @@ import { AuthSession } from 'expo';
 import { FontAwesome } from '@expo/vector-icons';
 import axios from 'axios';
 import SearchButton from './src/components/SearchButton';
+import AxiousSongs from './src/components/AxiousSongs';
 // import {
 //   FormLabel,
 //   FormInput,
@@ -24,8 +25,7 @@ export default class App extends Component {
   state = {
     userInfo: null,
     didError: false,
-    songNames: '',
-    gettingSongs: ''
+    songNames: ''
   };
 
   handleSpotifyLogin = async () => {
@@ -83,6 +83,7 @@ export default class App extends Component {
             /> */}
 
             <ScrollView>
+              <AxiousSongs />
               <SearchButton />
 
               <Text style={styles.userInfoText}>
@@ -146,13 +147,6 @@ export default class App extends Component {
       </View>
     );
   }
-  // render() {
-  //   return (
-  //     <View style={styles.container}>
-  //       <ButtonBasics />
-  //     </View>
-  //   );
-  // }
 }
 
 const styles = StyleSheet.create({
@@ -161,7 +155,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-evenly'
+    justifyContent: 'space-evenly',
+    color: 'green'
   },
   button: {
     backgroundColor: '#2FD566',
@@ -178,7 +173,8 @@ const styles = StyleSheet.create({
   },
   userInfoText: {
     color: '#fff',
-    fontSize: 18
+    fontSize: 18,
+    color: 'green'
   },
   errorText: {
     color: '#fff',
