@@ -1,20 +1,31 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
+import {
+  TouchableOpacity,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ScrollView
+} from 'react-native';
 import { AuthSession } from 'expo';
 import { FontAwesome } from '@expo/vector-icons';
+import axios from 'axios';
 
 const CLIENT_ID = '272d15472aa64a7fb339848f6db57257';
 
 export default class App extends Component {
   state = {
     userInfo: null,
-    didError: false
+    didError: false,
+    songNames: ''
   };
 
   handleSpotifyLogin = async () => {
     let redirectUrl = AuthSession.getRedirectUrl();
     let results = await AuthSession.startAsync({
-      authUrl: `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(redirectUrl)}&scope=user-read-email&response_type=token`
+      authUrl: `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(
+        redirectUrl
+      )}&scope=user-read-email&response_type=token`
     });
     if (results.type !== 'success') {
       console.log(results.type);
@@ -22,10 +33,21 @@ export default class App extends Component {
     } else {
       const userInfo = await axios.get(`https://api.spotify.com/v1/me`, {
         headers: {
-          "Authorization": `Bearer ${results.params.access_token}`
+          Authorization: `Bearer ${results.params.access_token}`
         }
       });
       this.setState({ userInfo: userInfo.data });
+
+      const songNames = await axios.get(
+        `https://api.spotify.com/v1/tracks/6rqhFgbbKwnb9MLmUQDhG6`,
+        {
+          headers: {
+            Authorization: `Bearer ${results.params.access_token}`
+          }
+        }
+      );
+
+      this.setState({ songNames: songNames.data });
     }
   };
 
@@ -37,60 +59,77 @@ export default class App extends Component {
         </Text>
       </View>
     );
-  }
+  };
+
 
   displayResults = () => {
-    { return this.state.userInfo ? (
-      <View style={styles.userInfo}>
-        <Image
-          style={styles.profileImage}
-          source={ {'uri': this.state.userInfo.images[0].url} }
-        />
-        <View>
-          <Text style={styles.userInfoText}>
-            Username:
-          </Text>
-          <Text style={styles.userInfoText}>
-            {this.state.userInfo.id}
-          </Text>
-          <Text style={styles.userInfoText}>
-            Email:
-          </Text>
-          <Text style={styles.userInfoText}>
-            {this.state.userInfo.email}
-          </Text>
-        </View>
-      </View>
-    ) : (
-      <View style={styles.userInfo}>
-        <Text style={styles.userInfoText}>
-          Login to Spotify to see user data.
-        </Text>
-      </View>
-    )}
-  }
+    {
+      return (
+        this.state.songNames,
+        this.state.userInfo ? (
+          <View style={styles.userInfo}>
+            <Image
+              style={styles.profileImage}
+              source={{ uri: this.state.userInfo.images.url }}
+            />
+            <ScrollView>
+              <Text style={styles.userInfoText}>Username: {'\n'}</Text>
+              <Text style={styles.userInfoText}>{this.state.userInfo.id}</Text>
+              <Text style={styles.userInfoText}>Email: {'\n'}</Text>
+              <Text style={styles.userInfoText}>
+                {this.state.userInfo.email}
+              </Text>
+              <Text style={styles.userInfoText}>display_name: {'\n'}</Text>
+              <Text style={styles.userInfoText}>
+                {this.state.userInfo.display_name}
+              </Text>
+              <Text style={styles.userInfoText}>Product: {'\n'}</Text>
+              <Text style={styles.userInfoText}>
+                {this.state.userInfo.href}
+              </Text>
+              <Text style={styles.userInfoText}>song.id: {'\n'}</Text>
+
+              <Text style={styles.userInfoText}>
+                {' '}
+                {'\n'} {this.state.songNames.id}
+              </Text>
+              <Text style={styles.userInfoText}>
+                {'\n'}
+                <Text style={styles.userInfoText}>Album type:</Text>
+
+                {this.state.songNames.album_type}
+              </Text>
+
+              <Text style={styles.userInfoText}>
+                {'\n'}
+                Popularity: {'\n'}
+                {this.state.songNames.popularity}
+              </Text>
+            </ScrollView>
+          </View>
+        ) : (
+          <View style={styles.userInfo}>
+            <Text style={styles.userInfoText}>
+              Login to Spotify to see user data.
+            </Text>
+          </View>
+        )
+      );
+    }
+  };
 
   render() {
     return (
       <View style={styles.container}>
-        <FontAwesome
-          name="spotify"
-          color="#2FD566"
-          size={128}
-        />
+        <FontAwesome name='spotify' color='#2FD566' size={128} />
         <TouchableOpacity
           style={styles.button}
           onPress={this.handleSpotifyLogin}
           disabled={this.state.userInfo ? true : false}
         >
-          <Text style={styles.buttonText}>
-            Login with Spotify
-          </Text>
+          <Text style={styles.buttonText}>Login with Spotify</Text>
         </TouchableOpacity>
-        {this.state.didError ?
-          this.displayError() :
-          this.displayResults()
-        }
+        {this.state.didError ? this.displayError() : this.displayResults()}
       </View>
     );
   }
@@ -102,7 +141,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-evenly'
   },
   button: {
     backgroundColor: '#2FD566',
@@ -115,7 +154,7 @@ const styles = StyleSheet.create({
   userInfo: {
     height: 250,
     width: 200,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   userInfoText: {
     color: '#fff',
