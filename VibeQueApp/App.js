@@ -5,11 +5,18 @@ import {
   Text,
   View,
   Image,
-  ScrollView
+  ScrollView,
+  TextInput
 } from 'react-native';
 import { AuthSession } from 'expo';
 import { FontAwesome } from '@expo/vector-icons';
 import axios from 'axios';
+import SearchButton from './src/components/SearchButton';
+// import {
+//   FormLabel,
+//   FormInput,
+//   FormValidationMessage
+// } from 'react-native-elements';
 
 const CLIENT_ID = '272d15472aa64a7fb339848f6db57257';
 
@@ -17,7 +24,8 @@ export default class App extends Component {
   state = {
     userInfo: null,
     didError: false,
-    songNames: ''
+    songNames: '',
+    gettingSongs: ''
   };
 
   handleSpotifyLogin = async () => {
@@ -69,12 +77,18 @@ export default class App extends Component {
         this.state.songNames,
         this.state.userInfo ? (
           <View style={styles.userInfo}>
-            <Image
+            {/* <Image
               style={styles.profileImage}
               source={{ uri: this.state.userInfo.images.url }}
-            />
+            /> */}
+
             <ScrollView>
-              <Text style={styles.userInfoText}>Username: {'\n'}</Text>
+              <SearchButton />
+
+              <Text style={styles.userInfoText}>
+                {'\n'}
+                {'\n'}Username: {'\n'}
+              </Text>
               <Text style={styles.userInfoText}>{this.state.userInfo.id}</Text>
               <Text style={styles.userInfoText}>Email: {'\n'}</Text>
               <Text style={styles.userInfoText}>
@@ -110,9 +124,7 @@ export default class App extends Component {
           </View>
         ) : (
           <View style={styles.userInfo}>
-            <Text style={styles.userInfoText}>
-              Login to Spotify to see user data.
-            </Text>
+            <Text style={styles.userInfoText}></Text>
           </View>
         )
       );
@@ -134,6 +146,13 @@ export default class App extends Component {
       </View>
     );
   }
+  // render() {
+  //   return (
+  //     <View style={styles.container}>
+  //       <ButtonBasics />
+  //     </View>
+  //   );
+  // }
 }
 
 const styles = StyleSheet.create({
