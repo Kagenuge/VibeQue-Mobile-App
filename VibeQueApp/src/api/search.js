@@ -22,7 +22,7 @@ export default async ({ offset, limit, q, token }) => {
     tracks: { items }
   } = json;
   // const items = json.tracks.items;
-  
+
   const filterByPreviewUrl = (item) => {
     if (item.preview_url) {
       return item;
@@ -37,6 +37,6 @@ export default async ({ offset, limit, q, token }) => {
     imageUri: item.album.images ? item.album.images[0].url : undefined,
     // type: item.uri,
     name: item.artists[0].name,
-    previewUrl: item.preview_url,
+    previewUrl: item.preview_url
   }));
 };
