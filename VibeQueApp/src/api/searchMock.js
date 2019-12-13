@@ -11,7 +11,7 @@ export default async ({ offset, limit, q }) => {
     title: `Song ${q} ${i + offset}`,
     imageUri,
     type,
-    // preview_url,
+    previewUrl,
     name
   }));
   return items;
