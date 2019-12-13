@@ -1,164 +1,93 @@
-import React, { Component } from 'react';
-import {
-  TouchableOpacity,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  ScrollView,
-  TextInput
-} from 'react-native';
-import { AuthSession } from 'expo';
-import { FontAwesome } from '@expo/vector-icons';
-import axios from 'axios';
-import SearchButton from './src/components/SearchButton';
-import AxiousSongs from './src/components/AxiousSongs';
+import React from 'react';
+import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import Search from './src/Components/Search';
+// import searchMock from './src/api/searchMock';
+import Listing from './src/Components/Listing';
 
-const CLIENT_ID = '272d15472aa64a7fb339848f6db57257';
+// production Spotify APIs
+import token from './src/api/token';
+import search from './src/api/search';
 
-export default class App extends Component {
-  state = {
-    userInfo: null,
-    didError: false,
-    songNames: '',
-    songUrl: ''
-  };
+const PAGE = 20;
 
-  //Autentikointi spotifyihin, token:
+export default class App extends React.Component {
+  constructor() {
+    super();
 
-  handleSpotifyLogin = async () => {
-    let redirectUrl = AuthSession.getRedirectUrl();
-    let results = await AuthSession.startAsync({
-      authUrl: `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(
-        redirectUrl
-      )}&scope=user-read-email&response_type=token`
+    this.state = {
+      items: [],
+      offset: 0,
+      isFetching: false,
+      query: 'Metallica',
+      token: null
+    };
+  }
+
+  async refreshToken() {
+    const newToken = await token();
+    this.setState({
+      token: newToken
     });
-    if (results.type !== 'success') {
-      console.log(results.type);
-      this.setState({ didError: true });
-    } else {
-      //käyttäjän tietojen hakua APIsta:
-      const userInfo = await axios.get(`https://api.spotify.com/v1/me`, {
-        headers: {
-          Authorization: `Bearer ${results.params.access_token}`
-        }
-      });
-      this.setState({ userInfo: userInfo.data });
+  }
 
-      //Yksittäisen laulujen tietojen hakua testinä:
-
-      const songNames = await axios.get(
-        `https://api.spotify.com/v1/tracks/6rqhFgbbKwnb9MLmUQDhG6`,
-        {
-          headers: {
-            Authorization: `Bearer ${results.params.access_token}`
-          }
-        }
-      );
-
-      this.setState({ songNames: songNames.data });
+  async loadNextPage() {
+    if (this.state.isFetching) {
+      console.log('already fetching');
+      return;
     }
 
-    const songUrl = await axios.get(
-      `https://api.spotify.com/v1/tracks/44AyOl4qVkzS48vBsbNXaC`,
+    this.setState({ isFetching: true });
+
+    const newItems = await search({
+      offset: this.state.offset,
+      limit: PAGE,
+      q: this.state.query,
+      token: this.state.token
+    });
+
+    console.log(newItems);
+
+    this.setState({
+      isFetching: false,
+      offset: this.state.offset + PAGE,
+      items: [...this.state.items, ...newItems]
+    });
+  }
+
+  async componentDidMount() {
+    await this.refreshToken();
+    await this.loadNextPage();
+  }
+
+  handleSearchChange(text) {
+    this.setState(
       {
-        headers: {
-          Authorization: `Bearer ${results.params.access_token}`
-        }
+        query: text,
+        items: [],
+        offset: 0
+      },
+      () => {
+        this.loadNextPage();
       }
     );
-    this.setState({ songUrl: songUrl.data });
-  };
+  }
 
-  displayError = () => {
-    return (
-      <View style={styles.userInfo}>
-        <Text style={styles.errorText}>
-          There was an error, please try again.
-        </Text>
-      </View>
-    );
-  };
-
-  //Tulokset, eli axious-haku. User-info ja songnames:
-
-  displayResults = () => {
-    {
-      return (
-        this.state.songNames,
-        this.state.songUrl,
-        this.state.userInfo ? (
-          <View style={styles.userInfo}>
-            {/*Spotify-käyttäjäkuvan haku:
-             <Image
-              style={styles.profileImage}
-              source={{ uri: this.state.userInfo.images.url }}
-            /> */}
-
-            <ScrollView>
-              <AxiousSongs />
-              <SearchButton />
-
-              <Text style={styles.userInfoText}>
-                {'\n'}
-                {'\n'}Username: {'\n'}
-              </Text>
-              <Text style={styles.userInfoText}>{this.state.userInfo.id}</Text>
-              <Text style={styles.userInfoText}>Email: {'\n'}</Text>
-              <Text style={styles.userInfoText}>
-                {this.state.userInfo.email}
-              </Text>
-              <Text style={styles.userInfoText}>display_name: {'\n'}</Text>
-              <Text style={styles.userInfoText}>
-                {this.state.userInfo.display_name}
-              </Text>
-              <Text style={styles.userInfoText}>Product: {'\n'}</Text>
-              <Text style={styles.userInfoText}>
-                {this.state.userInfo.href}
-              </Text>
-              <Text style={styles.userInfoText}>song.id: {'\n'}</Text>
-
-              <Text style={styles.userInfoText}>
-                {' '}
-                {'\n'} {this.state.songNames.id}
-              </Text>
-              <Text style={styles.userInfoText}>
-                {'\n'}
-                <Text style={styles.userInfoText}>Album type:</Text>
-
-                {this.state.songNames.album_type}
-              </Text>
-
-              <Text style={styles.userInfoText}>
-                {'\n'}
-                preview_url: {'\n'}
-                {this.state.songUrl.preview_url}
-              </Text>
-            </ScrollView>
-          </View>
-        ) : (
-          <View style={styles.userInfo}>
-            <Text style={styles.userInfoText}></Text>
-          </View>
-        )
-      );
-    }
-  };
-
-  //Spotify-nappi:
+  handleEndReached() {
+    this.loadNextPage();
+  }
 
   render() {
+    const { items, isFetching } = this.state;
+
     return (
       <View style={styles.container}>
-        <FontAwesome name='spotify' color='#2FD566' size={128} />
-        <TouchableOpacity
-          style={styles.button}
-          onPress={this.handleSpotifyLogin}
-          disabled={this.state.userInfo ? true : false}
-        >
-          <Text style={styles.buttonText}>Login with Spotify</Text>
-        </TouchableOpacity>
-        {this.state.didError ? this.displayError() : this.displayResults()}
+        <Text>Welcome at VibeQue!</Text>
+        <Search onChange={text => this.handleSearchChange(text)} />
+        {isFetching && items.length === 0 ? (
+          <ActivityIndicator />
+        ) : (
+          <Listing items={items} onEndReached={() => this.handleEndReached()} />
+        )}
       </View>
     );
   }
@@ -166,38 +95,11 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'column',
-    backgroundColor: '#000',
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-    color: 'green'
-  },
-  button: {
-    backgroundColor: '#2FD566',
-    padding: 20
-  },
-  buttonText: {
-    color: '#000',
-    fontSize: 20
-  },
-  userInfo: {
-    height: 250,
-    width: 200,
-    alignItems: 'center'
-  },
-  userInfoText: {
-    color: '#fff',
-    fontSize: 18,
-    color: 'green'
-  },
-  errorText: {
-    color: '#fff',
-    fontSize: 18
-  },
-  profileImage: {
-    height: 64,
-    width: 64,
-    marginBottom: 32
+    backgroundColor: '#fff',
+    alignItems: 'stretch',
+    justifyContent: 'flex-start',
+    padding: 10,
+    paddingTop: 50
   }
 });
