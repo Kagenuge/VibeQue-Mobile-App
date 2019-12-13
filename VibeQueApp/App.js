@@ -20,7 +20,8 @@ export default class App extends Component {
   state = {
     userInfo: null,
     didError: false,
-    songNames: ''
+    songNames: '',
+    songUrl: ''
   };
 
   //Autentikointi spotifyihin, token:
@@ -57,6 +58,16 @@ export default class App extends Component {
 
       this.setState({ songNames: songNames.data });
     }
+
+    const songUrl = await axios.get(
+      `https://api.spotify.com/v1/tracks/44AyOl4qVkzS48vBsbNXaC`,
+      {
+        headers: {
+          Authorization: `Bearer ${results.params.access_token}`
+        }
+      }
+    );
+    this.setState({ songUrl: songUrl.data });
   };
 
   displayError = () => {
@@ -75,6 +86,7 @@ export default class App extends Component {
     {
       return (
         this.state.songNames,
+        this.state.songUrl,
         this.state.userInfo ? (
           <View style={styles.userInfo}>
             {/*Spotify-käyttäjäkuvan haku:
@@ -119,8 +131,8 @@ export default class App extends Component {
 
               <Text style={styles.userInfoText}>
                 {'\n'}
-                Popularity: {'\n'}
-                {this.state.songNames.popularity}
+                preview_url: {'\n'}
+                {this.state.songUrl.preview_url}
               </Text>
             </ScrollView>
           </View>
