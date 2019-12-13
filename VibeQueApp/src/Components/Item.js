@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
+    backgroundColor: 'white'
   },
   image: {
     width: 100,
@@ -18,6 +19,7 @@ export default ({
   item: {
     imageUri,
     title,
+    previewUrl
   },
 }) => (
   <View style={styles.container}>
@@ -25,6 +27,6 @@ export default ({
       source={{ uri: imageUri }}
       style={styles.image}
     />
-    <Text style={styles.text}>{title}</Text>
+    <Text style={styles.text} previewUrl={previewUrl}>{title}</Text>
   </View>
 );
