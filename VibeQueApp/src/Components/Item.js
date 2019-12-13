@@ -4,7 +4,8 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: 'white'
   },
   image: {
     width: 100,
