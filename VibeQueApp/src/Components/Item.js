@@ -5,6 +5,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: 'white'
   },
   image: {
     width: 100,
@@ -13,6 +15,7 @@ const styles = StyleSheet.create({
   },
   text: {}
 });
+
 
 export default ({ item: { imageUri, title, type, name } }) => (
   <View style={styles.container}>

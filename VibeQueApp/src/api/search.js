@@ -28,7 +28,7 @@ export default async ({ offset, limit, q, token }) => {
     imageUri: item.album.images ? item.album.images[0].url : undefined,
     // type: item.uri,
     name: item.artists[0].name
-    // preview_url: item.preview_url
+    previewUrl: item.preview_url,
   }));
   console.log('search end');
 };
