@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, Text } from 'react-native';
+import { FlatList, Text, Button, View, Alert } from 'react-native';
 
 import Separator from './Separator';
 import Item from './Item';
