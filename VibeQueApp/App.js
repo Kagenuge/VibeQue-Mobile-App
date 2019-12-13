@@ -1,135 +1,102 @@
-import React, { Component } from 'react';
-import {
-  TouchableOpacity,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  ScrollView
-} from 'react-native';
-import { AuthSession } from 'expo';
-import { FontAwesome } from '@expo/vector-icons';
-import axios from 'axios';
+import React from 'react';
+import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import Search from './src/Components/Search';
+import searchMock from './src/api/searchMock';
+import Listing from './src/Components/Listing';
 
-const CLIENT_ID = '272d15472aa64a7fb339848f6db57257';
+// production Spotify APIs
+import token from './src/api/token';
+import search from './src/api/search';
 
-export default class App extends Component {
-  state = {
-    userInfo: null,
-    didError: false,
-    songNames: ''
-  };
+const PAGE = 20;
 
-  handleSpotifyLogin = async () => {
-    let redirectUrl = AuthSession.getRedirectUrl();
-    let results = await AuthSession.startAsync({
-      authUrl: `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(
-        redirectUrl
-      )}&scope=user-read-email&response_type=token`
+export default class App extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      items: [],
+      offset: 0,
+      isFetching: false,
+      query: 'Metallica',
+      token: null,
+    };
+  }
+
+  async refreshToken() {
+    const newToken = await token();
+    this.setState({
+      token: newToken,
     });
-    if (results.type !== 'success') {
-      console.log(results.type);
-      this.setState({ didError: true });
-    } else {
-      const userInfo = await axios.get(`https://api.spotify.com/v1/me`, {
-        headers: {
-          Authorization: `Bearer ${results.params.access_token}`
-        }
-      });
-      this.setState({ userInfo: userInfo.data });
+  }
 
-      const songNames = await axios.get(
-        `https://api.spotify.com/v1/tracks/6rqhFgbbKwnb9MLmUQDhG6`,
-        {
-          headers: {
-            Authorization: `Bearer ${results.params.access_token}`
-          }
-        }
-      );
-
-      this.setState({ songNames: songNames.data });
+  async loadNextPage() {
+    if (this.state.isFetching) {
+      console.log('already fetching');
+      return;
     }
-  };
 
-  displayError = () => {
-    return (
-      <View style={styles.userInfo}>
-        <Text style={styles.errorText}>
-          There was an error, please try again.
-        </Text>
-      </View>
-    );
-  };
+    this.setState({ isFetching: true });
 
+    const newItems = await search({
+      offset: this.state.offset,
+      limit: PAGE,
+      q: this.state.query,
+      token: this.state.token,
+    });
 
-  displayResults = () => {
-    {
-      return (
-        this.state.songNames,
-        this.state.userInfo ? (
-          <View style={styles.userInfo}>
-            <Image
-              style={styles.profileImage}
-              source={{ uri: this.state.userInfo.images.url }}
-            />
-            <ScrollView>
-              <Text style={styles.userInfoText}>Username: {'\n'}</Text>
-              <Text style={styles.userInfoText}>{this.state.userInfo.id}</Text>
-              <Text style={styles.userInfoText}>Email: {'\n'}</Text>
-              <Text style={styles.userInfoText}>
-                {this.state.userInfo.email}
-              </Text>
-              <Text style={styles.userInfoText}>display_name: {'\n'}</Text>
-              <Text style={styles.userInfoText}>
-                {this.state.userInfo.display_name}
-              </Text>
-              <Text style={styles.userInfoText}>Product: {'\n'}</Text>
-              <Text style={styles.userInfoText}>
-                {this.state.userInfo.href}
-              </Text>
-              <Text style={styles.userInfoText}>song.id: {'\n'}</Text>
+    console.log(newItems);
 
-              <Text style={styles.userInfoText}>
-                {' '}
-                {'\n'} {this.state.songNames.id}
-              </Text>
-              <Text style={styles.userInfoText}>
-                {'\n'}
-                <Text style={styles.userInfoText}>Album type:</Text>
+    this.setState({
+      isFetching: false,
+      offset: this.state.offset + PAGE,
+      items: [
+        ...this.state.items,
+        ...newItems,
+      ],
+    });
+  }
 
-                {this.state.songNames.album_type}
-              </Text>
+  async componentDidMount() {
+    await this.refreshToken();
+    await this.loadNextPage();
+  }
 
-              <Text style={styles.userInfoText}>
-                {'\n'}
-                Popularity: {'\n'}
-                {this.state.songNames.popularity}
-              </Text>
-            </ScrollView>
-          </View>
-        ) : (
-          <View style={styles.userInfo}>
-            <Text style={styles.userInfoText}>
-              Login to Spotify to see user data.
-            </Text>
-          </View>
-        )
-      );
-    }
-  };
+  handleSearchChange(text) {
+    this.setState({
+      query: text,
+      items: [],
+      offset: 0,
+    }, () => {
+      this.loadNextPage();
+    });
+  }
+
+  handleEndReached() {
+    this.loadNextPage();
+  }
 
   render() {
+    const { items, isFetching } = this.state;
+
     return (
       <View style={styles.container}>
-        <FontAwesome name='spotify' color='#2FD566' size={128} />
-        <TouchableOpacity
-          style={styles.button}
-          onPress={this.handleSpotifyLogin}
-          disabled={this.state.userInfo ? true : false}
-        >
-          <Text style={styles.buttonText}>Login with Spotify</Text>
-        </TouchableOpacity>
-        {this.state.didError ? this.displayError() : this.displayResults()}
+        <Text>Welcome at VibeQue!</Text>
+        <Search
+          onChange={
+            text => this.handleSearchChange(text)
+          }
+        />
+        {
+          (isFetching && items.length === 0)
+            ? <ActivityIndicator />
+            : <Listing
+                items={items}
+                onEndReached={
+                  () => this.handleEndReached()
+                }
+              />
+        }
       </View>
     );
   }
@@ -137,36 +104,11 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'column',
-    backgroundColor: '#000',
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'space-evenly'
+    backgroundColor: '#fff',
+    alignItems: 'stretch',
+    justifyContent: 'flex-start',
+    padding: 10,
+    paddingTop: 50,
   },
-  button: {
-    backgroundColor: '#2FD566',
-    padding: 20
-  },
-  buttonText: {
-    color: '#000',
-    fontSize: 20
-  },
-  userInfo: {
-    height: 250,
-    width: 200,
-    alignItems: 'center'
-  },
-  userInfoText: {
-    color: '#fff',
-    fontSize: 18
-  },
-  errorText: {
-    color: '#fff',
-    fontSize: 18
-  },
-  profileImage: {
-    height: 64,
-    width: 64,
-    marginBottom: 32
-  }
 });
