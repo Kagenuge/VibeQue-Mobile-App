@@ -10,10 +10,9 @@ const styles = StyleSheet.create({
     height: 40,
     padding: 10,
     marginBottom: 10,
-    marginTop: 10,
+    marginTop: 10
   },
-  container: {
-  },
+  container: {}
 });
 
 export default class Search extends Component {
@@ -21,18 +20,21 @@ export default class Search extends Component {
     super();
 
     this.state = {
-      text: '',
+      text: ''
     };
   }
 
   handleChangeText(text) {
     const { onChange } = this.props;
 
-    this.setState({
-      text,
-    }, () => {
-      onChange(text);
-    });
+    this.setState(
+      {
+        text
+      },
+      () => {
+        onChange(text);
+      }
+    );
   }
 
   render() {

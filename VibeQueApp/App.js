@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 import Search from './src/Components/Search';
-import searchMock from './src/api/searchMock';
+// import searchMock from './src/api/searchMock';
 import Listing from './src/Components/Listing';
 
 // production Spotify APIs
@@ -19,14 +19,14 @@ export default class App extends React.Component {
       offset: 0,
       isFetching: false,
       query: 'Metallica',
-      token: null,
+      token: null
     };
   }
 
   async refreshToken() {
     const newToken = await token();
     this.setState({
-      token: newToken,
+      token: newToken
     });
   }
 
@@ -42,7 +42,7 @@ export default class App extends React.Component {
       offset: this.state.offset,
       limit: PAGE,
       q: this.state.query,
-      token: this.state.token,
+      token: this.state.token
     });
 
     console.log(newItems);
@@ -50,10 +50,7 @@ export default class App extends React.Component {
     this.setState({
       isFetching: false,
       offset: this.state.offset + PAGE,
-      items: [
-        ...this.state.items,
-        ...newItems,
-      ],
+      items: [...this.state.items, ...newItems]
     });
   }
 
@@ -63,13 +60,16 @@ export default class App extends React.Component {
   }
 
   handleSearchChange(text) {
-    this.setState({
-      query: text,
-      items: [],
-      offset: 0,
-    }, () => {
-      this.loadNextPage();
-    });
+    this.setState(
+      {
+        query: text,
+        items: [],
+        offset: 0
+      },
+      () => {
+        this.loadNextPage();
+      }
+    );
   }
 
   handleEndReached() {
@@ -82,21 +82,12 @@ export default class App extends React.Component {
     return (
       <View style={styles.container}>
         <Text>Welcome at VibeQue!</Text>
-        <Search
-          onChange={
-            text => this.handleSearchChange(text)
-          }
-        />
-        {
-          (isFetching && items.length === 0)
-            ? <ActivityIndicator />
-            : <Listing
-                items={items}
-                onEndReached={
-                  () => this.handleEndReached()
-                }
-              />
-        }
+        <Search onChange={text => this.handleSearchChange(text)} />
+        {isFetching && items.length === 0 ? (
+          <ActivityIndicator />
+        ) : (
+          <Listing items={items} onEndReached={() => this.handleEndReached()} />
+        )}
       </View>
     );
   }
@@ -109,6 +100,6 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     justifyContent: 'flex-start',
     padding: 10,
-    paddingTop: 50,
-  },
+    paddingTop: 50
+  }
 });
