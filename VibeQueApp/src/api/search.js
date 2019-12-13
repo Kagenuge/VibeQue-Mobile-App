@@ -22,13 +22,21 @@ export default async ({ offset, limit, q, token }) => {
     tracks: { items }
   } = json;
   // const items = json.tracks.items;
-  return items.map(item => ({
+  
+  const filterByPreviewUrl = (item) => {
+    if (item.preview_url) {
+      return item;
+    }
+  } 
+
+  const onlyWithUrl = items.filter(filterByPreviewUrl)
+  console.log("SPÄGÄGÄGÄ" + JSON.stringify(onlyWithUrl))
+  return onlyWithUrl.map(item => ({
     id: item.id,
     title: item.name,
     imageUri: item.album.images ? item.album.images[0].url : undefined,
     // type: item.uri,
-    name: item.artists[0].name
+    name: item.artists[0].name,
     previewUrl: item.preview_url,
   }));
-  console.log('search end');
 };

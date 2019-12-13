@@ -18,7 +18,7 @@ export default class App extends React.Component {
       items: [],
       offset: 0,
       isFetching: false,
-      query: 'Metallica',
+      query: 'Kendrick',
       token: null
     };
   }
@@ -81,7 +81,7 @@ export default class App extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Text>Welcome at VibeQue!</Text>
+        <Text>Welcome to VibeQue!</Text>
         <Search onChange={text => this.handleSearchChange(text)} />
         {isFetching && items.length === 0 ? (
           <ActivityIndicator />
