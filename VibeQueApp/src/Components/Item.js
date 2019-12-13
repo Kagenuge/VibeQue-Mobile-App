@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, Button, Alert } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -15,8 +15,9 @@ const styles = StyleSheet.create({
   text: {}
 });
 
+let url;
 export default ({ item: { imageUri, title, type, name, previewUrl } }) => (
-  <TouchableOpacity>
+  <TouchableOpacity onPress={() => {url = previewUrl, Alert.alert(url)}}>
     <View style={styles.container}>
       <Image source={{ uri: imageUri }} style={styles.image} />
       <Text style={styles.text}>{name} -</Text>
