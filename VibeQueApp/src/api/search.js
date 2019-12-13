@@ -30,6 +30,7 @@ export default async ({
   return items.map(item => ({
     id: item.id,
     title: item.name,
+    previewUrl: item.preview_url,
     imageUri: item.album.images
       ? item.album.images[0].url
       : undefined
