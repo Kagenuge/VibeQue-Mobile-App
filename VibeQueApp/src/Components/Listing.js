@@ -7,7 +7,6 @@ let url;
 
 export default ({ items, onEndReached }) => (
   <View>
-    <Button title="Set Song" onPress={(() => Alert.alert(`${url}`))}/>
     <FlatList
       data={items}
       renderItem={(info) => (
