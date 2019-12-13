@@ -5,11 +5,14 @@ import {
   Text,
   View,
   Image,
-  ScrollView
+  ScrollView,
+  TextInput
 } from 'react-native';
 import { AuthSession } from 'expo';
 import { FontAwesome } from '@expo/vector-icons';
 import axios from 'axios';
+import SearchButton from './src/components/SearchButton';
+import AxiousSongs from './src/components/AxiousSongs';
 
 const CLIENT_ID = '272d15472aa64a7fb339848f6db57257';
 
@@ -19,6 +22,8 @@ export default class App extends Component {
     didError: false,
     songNames: ''
   };
+
+  //Autentikointi spotifyihin, token:
 
   handleSpotifyLogin = async () => {
     let redirectUrl = AuthSession.getRedirectUrl();
@@ -31,12 +36,15 @@ export default class App extends Component {
       console.log(results.type);
       this.setState({ didError: true });
     } else {
+      //käyttäjän tietojen hakua APIsta:
       const userInfo = await axios.get(`https://api.spotify.com/v1/me`, {
         headers: {
           Authorization: `Bearer ${results.params.access_token}`
         }
       });
       this.setState({ userInfo: userInfo.data });
+
+      //Yksittäisen laulujen tietojen hakua testinä:
 
       const songNames = await axios.get(
         `https://api.spotify.com/v1/tracks/6rqhFgbbKwnb9MLmUQDhG6`,
@@ -61,7 +69,7 @@ export default class App extends Component {
     );
   };
 
-  //
+  //Tulokset, eli axious-haku. User-info ja songnames:
 
   displayResults = () => {
     {
@@ -69,12 +77,20 @@ export default class App extends Component {
         this.state.songNames,
         this.state.userInfo ? (
           <View style={styles.userInfo}>
-            <Image
+            {/*Spotify-käyttäjäkuvan haku:
+             <Image
               style={styles.profileImage}
               source={{ uri: this.state.userInfo.images.url }}
-            />
+            /> */}
+
             <ScrollView>
-              <Text style={styles.userInfoText}>Username: {'\n'}</Text>
+              <AxiousSongs />
+              <SearchButton />
+
+              <Text style={styles.userInfoText}>
+                {'\n'}
+                {'\n'}Username: {'\n'}
+              </Text>
               <Text style={styles.userInfoText}>{this.state.userInfo.id}</Text>
               <Text style={styles.userInfoText}>Email: {'\n'}</Text>
               <Text style={styles.userInfoText}>
@@ -110,14 +126,14 @@ export default class App extends Component {
           </View>
         ) : (
           <View style={styles.userInfo}>
-            <Text style={styles.userInfoText}>
-              Login to Spotify to see user data.
-            </Text>
+            <Text style={styles.userInfoText}></Text>
           </View>
         )
       );
     }
   };
+
+  //Spotify-nappi:
 
   render() {
     return (
@@ -142,7 +158,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-evenly'
+    justifyContent: 'space-evenly',
+    color: 'green'
   },
   button: {
     backgroundColor: '#2FD566',
@@ -159,7 +176,8 @@ const styles = StyleSheet.create({
   },
   userInfoText: {
     color: '#fff',
-    fontSize: 18
+    fontSize: 18,
+    color: 'green'
   },
   errorText: {
     color: '#fff',
