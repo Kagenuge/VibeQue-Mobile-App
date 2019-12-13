@@ -13,11 +13,6 @@ import { FontAwesome } from '@expo/vector-icons';
 import axios from 'axios';
 import SearchButton from './src/components/SearchButton';
 import AxiousSongs from './src/components/AxiousSongs';
-// import {
-//   FormLabel,
-//   FormInput,
-//   FormValidationMessage
-// } from 'react-native-elements';
 
 const CLIENT_ID = '272d15472aa64a7fb339848f6db57257';
 
@@ -27,6 +22,8 @@ export default class App extends Component {
     didError: false,
     songNames: ''
   };
+
+  //Autentikointi spotifyihin, token:
 
   handleSpotifyLogin = async () => {
     let redirectUrl = AuthSession.getRedirectUrl();
@@ -39,12 +36,15 @@ export default class App extends Component {
       console.log(results.type);
       this.setState({ didError: true });
     } else {
+      //käyttäjän tietojen hakua APIsta:
       const userInfo = await axios.get(`https://api.spotify.com/v1/me`, {
         headers: {
           Authorization: `Bearer ${results.params.access_token}`
         }
       });
       this.setState({ userInfo: userInfo.data });
+
+      //Yksittäisen laulujen tietojen hakua testinä:
 
       const songNames = await axios.get(
         `https://api.spotify.com/v1/tracks/6rqhFgbbKwnb9MLmUQDhG6`,
@@ -69,7 +69,7 @@ export default class App extends Component {
     );
   };
 
-  //
+  //Tulokset, eli axious-haku. User-info ja songnames:
 
   displayResults = () => {
     {
@@ -77,7 +77,8 @@ export default class App extends Component {
         this.state.songNames,
         this.state.userInfo ? (
           <View style={styles.userInfo}>
-            {/* <Image
+            {/*Spotify-käyttäjäkuvan haku:
+             <Image
               style={styles.profileImage}
               source={{ uri: this.state.userInfo.images.url }}
             /> */}
@@ -131,6 +132,8 @@ export default class App extends Component {
       );
     }
   };
+
+  //Spotify-nappi:
 
   render() {
     return (
