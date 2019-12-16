@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   container: {}
 });
 
-export default class Search extends Component {
+export default class SearchSongs extends Component {
   constructor() {
     super();
 
