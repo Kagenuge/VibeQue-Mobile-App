@@ -4,10 +4,13 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 // import AppNavigator from './AppNavigator';
 import SongBox from './src/Components/SongBox';
+import BackgroundImage from './src/Components/BackgroundImage';
 
 class HomeScreen extends React.Component {
   render() {
     return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <BackgroundImage />
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'black'}}>
                 <Image
           style={{width: 350, height: 80}}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, Text, Button, View, Alert } from 'react-native';
+import { FlatList, View } from 'react-native';
 
 import Separator from './Separator';
 import Item from './Item';
@@ -11,7 +11,9 @@ export default ({ items, onEndReached }) => (
       renderItem={(info) => (
         <Item item={info.item} />
       )}
-      ItemSeparatorComponent={() => <Separator />}
+      ItemSeparatorComponent={() => 
+      <Separator />
+      }
       keyExtractor={item => item.id}
       onEndReached={onEndReached}
     />
