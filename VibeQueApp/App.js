@@ -1,14 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
-import Search from './src/Components/Search';
-
-// import searchMock from './src/api/searchMock';
-
-import Listing from './src/Components/Listing';
-
-// production Spotify APIs
-import token from './src/api/token';
-import search from './src/api/search';
+import BackgroundVideo from './src/Components/VideoComponent';
 
 const PAGE = 20;
 
@@ -82,15 +74,18 @@ export default class App extends React.Component {
     const { items, isFetching } = this.state;
 
     return (
-      <View style={styles.container}>
-        <Text>Welcome to VibeQue!</Text>
-        <Search onChange={text => this.handleSearchChange(text)} />
-        {isFetching && items.length === 0 ? (
-          <ActivityIndicator />
-        ) : (
-          <Listing items={items} onEndReached={() => this.handleEndReached()} />
-        )}
+      <View>
+        <BackgroundVideo></BackgroundVideo>
       </View>
+      // <View style={styles.container}>
+      //   <Text>Welcome to VibeQue!</Text>
+      //   <Search onChange={text => this.handleSearchChange(text)} />
+      //   {isFetching && items.length === 0 ? (
+      //     <ActivityIndicator />
+      //   ) : (
+      //     <Listing items={items} onEndReached={() => this.handleEndReached()} />
+      //   )}
+      // </View>
     );
   }
 }

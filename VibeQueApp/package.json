@@ -20,9 +20,12 @@
     "react-native-responsive-ui": "^2.1.1",
     "react-native-screens": "^2.0.0-alpha.19",
     "react-native-vector-icons": "^6.6.0",
+    "react-native-video": "^5.0.2",
     "react-native-web": "~0.11.7",
     "react-navigation": "^4.0.10",
-    "rn-spotify-sdk": "^1.2.13"
+    "rn-spotify-sdk": "^1.2.13",
+    "styled-components": "^4.4.1",
+    "wrapper": "^0.1.0"
   },
   "devDependencies": {
     "babel-preset-expo": "~8.0.0"
