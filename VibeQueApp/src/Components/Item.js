@@ -11,7 +11,9 @@ const styles = StyleSheet.create({
     height: 100,
     marginRight: 10,
   },
-  text: {},
+  text: {
+    color: 'white'
+  },
 });
 
 export default ({

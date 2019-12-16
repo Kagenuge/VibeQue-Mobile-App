@@ -34,10 +34,11 @@ export default class AxiousSongs extends React.Component {
     }
 
     return (
-      <View style={{ flex: 1, paddingTop: 20 }}>
+      <View style={{ flex: 1, paddingTop: 20, }}>
         <FlatList
           data={this.state.dataSource}
-          renderItem={({ item }) => <Text>{item.id}</Text>}
+          renderItem={({ item }) => 
+          <Text>{item.id}</Text>}
         />
       </View>
     );

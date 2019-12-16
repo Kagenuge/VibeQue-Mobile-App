@@ -1,8 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
-import Search from './src/Components/Search';
+import { StyleSheet, Image, Text, View, ActivityIndicator } from 'react-native';
+import SearchBar from './src/Components/Search';
 import searchMock from './src/api/searchMock';
 import Listing from './src/Components/Listing';
+import Index from './src/Components/Index'
+
 
 // production Spotify APIs
 import token from './src/api/token';
@@ -18,7 +20,7 @@ export default class App extends React.Component {
       items: [],
       offset: 0,
       isFetching: false,
-      query: 'Metallica',
+      query: 'top',
       token: null,
     };
   }
@@ -81,8 +83,11 @@ export default class App extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Text>Welcome at VibeQue!</Text>
-        <Search
+        <Image
+          style={{width: 350, height: 80}}
+          source={require('./src/pics/logo1.png')}
+        />
+        <SearchBar
           onChange={
             text => this.handleSearchChange(text)
           }
@@ -105,9 +110,10 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'stretch',
-    justifyContent: 'flex-start',
+    color: '#FF2B62',
+    backgroundColor: 'black',
+    alignItems: 'center',
+    justifyContent: 'center',
     padding: 10,
     paddingTop: 50,
   },
