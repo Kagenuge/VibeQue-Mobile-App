@@ -1,9 +1,11 @@
 import { createStackNavigator } from 'react-navigation-stack';
+import Home from './Home';
+import { createAppContainer } from 'react-navigation';
 
 const AppNavigator = createStackNavigator({
-  Home: {
-    screen: HomeScreen
-  }
+  Home: Home
 });
 
-export default AppNavigator;
+// const Appi = createStackNavigator(AppNavigator);
+
+export default createAppContainer(AppNavigator);
