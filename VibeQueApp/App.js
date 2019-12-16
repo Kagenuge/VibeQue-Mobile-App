@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 import Search from './src/Components/Search';
-import searchMock from './src/api/searchMock';
+//import searchMock from './src/api/searchMock';
 import Listing from './src/Components/Listing';
 
 // production Spotify APIs
