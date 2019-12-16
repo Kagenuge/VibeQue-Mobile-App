@@ -3,20 +3,21 @@ import { View, Text, TextInput, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   text: {
-    marginTop: 50,
-    alignItems: 'center',
+    marginTop: 30,
     justifyContent: 'center',
     textAlign: 'center',
     fontStyle: 'italic',
     color: 'white',
-    fontSize: 30
+    fontSize: 30,
+    backgroundColor: 'black'
     
   },
   input: {
+    justifyContent: 'center',
     borderWidth: 2,
     borderColor: '#FF2B62',
     borderRadius: 10,
-    width: 250, 
+    width: 400, 
     height: 40,
     color: 'white',
     padding: 10,
