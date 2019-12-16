@@ -1,8 +1,6 @@
-import React, { Component } from 'react';
-
+import React from 'react';
 import postSong from '../Components/serviceClient';
 
-// import postSong from '../api/token';
 import {
   View,
   Text,
@@ -11,6 +9,8 @@ import {
   TouchableOpacity,
   Alert
 } from 'react-native';
+// import postSong from '../api/token';
+const url = 'http://localhost:3000/api/songrequest';
 
 const styles = StyleSheet.create({
   container: {
@@ -29,15 +29,6 @@ const styles = StyleSheet.create({
   },
 
 });
-
-//SongUrl callback:
-
-handleClick = songUrl => {
-  console.log('url:');
-  console.log(songUrl);
-
-  // addSong(songUrl);
-};
 
 // addSong = songUrl => {
 //   postSong(songUrl).then(answer => {
@@ -68,6 +59,7 @@ export default ({ item: { imageUri, title, type, name, previewUrl } }) => (
         ]
       );
     }}
+
   >
     <View style={styles.container}>
       <Image source={{ uri: imageUri }} style={styles.image} />
