@@ -16,14 +16,18 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'white'
+    backgroundColor: 'black'
   },
   image: {
     width: 100,
     height: 100,
     marginRight: 10
   },
-  text: {}
+
+  text: {
+    color: 'white'
+  },
+
 });
 
 // addSong = songUrl => {
@@ -33,22 +37,10 @@ const styles = StyleSheet.create({
 // };
 
 //bindauksella voisi käyttää myös muissa componenteissa:
-//this.handleClick = this.handleClick.bind(this);
-//Ip address
-//var addSong;
 
 export default ({ item: { imageUri, title, type, name, previewUrl } }) => (
   <TouchableOpacity
     onPress={() => {
-      handleClick = songUrl => {
-        console.log('url: ' + songUrl);
-        postSong(songUrl).then(res => {
-          console.log('Server response: ' + res)
-        });
-
-        // addSong(songUrl);
-      };
-
       Alert.alert(
         'Set you entrance song to be: ',
         '' + name + ' - ' + title + '',
@@ -61,11 +53,7 @@ export default ({ item: { imageUri, title, type, name, previewUrl } }) => (
           {
             text: 'OK',
             onPress: () => {
-              if (previewUrl) {
-                handleClick(previewUrl);
-              } else {
-                console.log('No url yet')
-              }
+              handleClick(previewUrl);
             }
           }
         ]
