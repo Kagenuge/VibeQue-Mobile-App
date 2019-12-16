@@ -8,6 +8,7 @@ export default () => (
       backgroundColor: '#FF2B62',
       marginTop: 20,
       marginBottom: 20,
+
     }}
   />
 );
