@@ -26,13 +26,11 @@
     "rm": "^0.1.8",
     "rn-spotify-sdk": "^1.2.13",
     "watchman": "^1.0.0",
-    "yarn": "^1.21.1"
+    "yarn": "^1.21.1",
     "react-navigation": "^4.0.10",
-    "rn-spotify-sdk": "^1.2.13",
     "styled-components": "^4.4.1",
-    "wrapper": "^0.1.0"
-    "react-navigation-stack": "^1.10.3",
-    "rn-spotify-sdk": "^1.2.13"
+    "wrapper": "^0.1.0",
+    "react-navigation-stack": "^1.10.3"
   },
   "devDependencies": {
     "babel-preset-expo": "~8.0.0"
