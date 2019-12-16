@@ -1,5 +1,16 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+
+import postSong from '../Components/serviceClient';
+
+// import postSong from '../api/token';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  Alert
+} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -15,11 +26,53 @@ const styles = StyleSheet.create({
   text: {}
 });
 
-let url;
+//SongUrl callback:
+
+handleClick = songUrl => {
+  console.log('url:');
+  console.log(songUrl);
+
+  // addSong(songUrl);
+};
+
+// addSong = songUrl => {
+//   postSong(songUrl).then(answer => {
+//     console.log('Addsongissa:' + songUrl);
+//   });
+// };
+
+//bindauksella voisi käyttää myös muissa componenteissa:
+this.handleClick = this.handleClick.bind(this);
+
+var addSong;
+let songUrl;
+
 export default ({ item: { imageUri, title, type, name, previewUrl } }) => (
-  <TouchableOpacity onPress={() => {url = previewUrl, Alert.alert(url)}}>
+  <TouchableOpacity
+    onPress={() => {
+      songUrl = previewUrl;
+      Alert.alert(
+        'Set you entrance song to be: ',
+        '' + name + ' - ' + title + '',
+        [
+          {
+            style: 'destructive',
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed')
+          },
+          {
+            text: 'OK',
+            onPress: () => {
+              this.handleClick(songUrl);
+            }
+          }
+        ]
+      );
+    }}
+  >
     <View style={styles.container}>
       <Image source={{ uri: imageUri }} style={styles.image} />
+
       <Text style={styles.text}>{name} -</Text>
       <Text> {'\n'} </Text>
       <Text style={styles.text}>{title}</Text>
@@ -27,3 +80,7 @@ export default ({ item: { imageUri, title, type, name, previewUrl } }) => (
     </View>
   </TouchableOpacity>
 );
+
+// let url;
+// export default ({ item: { imageUri, title, type, name, previewUrl } }) => (
+//   <TouchableOpacity onPress={() => {url = previewUrl, Alert.alert(url)}}></TouchableOpacity>
