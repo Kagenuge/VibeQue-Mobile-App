@@ -20,18 +20,3 @@ export default async () => {
   console.log('token is', newToken);
   return newToken;
 };
-
-//UUTTA:
-
-// const url = 'meidanPalvelin'
-
-const urli = 'http://localhost:5000/api/topics';
-
-const postSong = songUrl => {
-  console.log('ARGH');
-  return fetch(urli, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(songUrl)
-  });
-};
