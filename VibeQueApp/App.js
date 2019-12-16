@@ -11,6 +11,15 @@ class HomeScreen extends React.Component {
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <SongBox />
       </View>
+      // <View style={styles.container}>
+      //   <Text>Welcome to VibeQue!</Text>
+      //   <Search onChange={text => this.handleSearchChange(text)} />
+      //   {isFetching && items.length === 0 ? (
+      //     <ActivityIndicator />
+      //   ) : (
+      //     <Listing items={items} onEndReached={() => this.handleEndReached()} />
+      //   )}
+      // </View>
     );
   }
 }
