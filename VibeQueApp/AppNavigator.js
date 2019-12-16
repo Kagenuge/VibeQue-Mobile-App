@@ -1,4 +1,4 @@
-import { createStackNavigator } from 'react-navigation-stack';
+/* import { createStackNavigator } from 'react-navigation-stack';
 
 const AppNavigator = createStackNavigator({
   Home: {
@@ -7,3 +7,4 @@ const AppNavigator = createStackNavigator({
 });
 
 export default AppNavigator;
+ */

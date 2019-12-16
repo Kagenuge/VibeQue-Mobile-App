@@ -28,10 +28,4 @@ class HomeScreen extends React.Component {
   }
 }
 
-const AppNavigator = createStackNavigator({
-  Home: {
-    screen: HomeScreen
-  }
-});
-
-export default createAppContainer(AppNavigator);
+export default HomeScreen;
