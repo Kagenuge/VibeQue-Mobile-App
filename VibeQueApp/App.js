@@ -15,23 +15,8 @@ class HomeScreen extends React.Component {
         />
         <SongBox />
       </View>
-      // <View style={styles.container}>
-      //   <Text>Welcome to VibeQue!</Text>
-      //   <Search onChange={text => this.handleSearchChange(text)} />
-      //   {isFetching && items.length === 0 ? (
-      //     <ActivityIndicator />
-      //   ) : (
-      //     <Listing items={items} onEndReached={() => this.handleEndReached()} />
-      //   )}
-      // </View>
     );
   }
 }
 
-const AppNavigator = createStackNavigator({
-  Home: {
-    screen: HomeScreen
-  }
-});
-
-export default createAppContainer(AppNavigator);
+export default HomeScreen;
