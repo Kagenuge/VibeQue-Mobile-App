@@ -97,7 +97,7 @@ export default class SongBox extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'black',
     alignItems: 'stretch',
     justifyContent: 'flex-start',
     padding: 10,

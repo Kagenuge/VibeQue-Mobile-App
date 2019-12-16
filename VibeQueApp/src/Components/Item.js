@@ -16,14 +16,18 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'white'
+    backgroundColor: 'black'
   },
   image: {
     width: 100,
     height: 100,
     marginRight: 10
   },
-  text: {}
+
+  text: {
+    color: 'white'
+  },
+
 });
 
 //SongUrl callback:
@@ -42,15 +46,10 @@ handleClick = songUrl => {
 // };
 
 //bindauksella voisi käyttää myös muissa componenteissa:
-this.handleClick = this.handleClick.bind(this);
-
-var addSong;
-let songUrl;
 
 export default ({ item: { imageUri, title, type, name, previewUrl } }) => (
   <TouchableOpacity
     onPress={() => {
-      songUrl = previewUrl;
       Alert.alert(
         'Set you entrance song to be: ',
         '' + name + ' - ' + title + '',
@@ -63,7 +62,7 @@ export default ({ item: { imageUri, title, type, name, previewUrl } }) => (
           {
             text: 'OK',
             onPress: () => {
-              this.handleClick(songUrl);
+              handleClick(previewUrl);
             }
           }
         ]
