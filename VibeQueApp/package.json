@@ -24,22 +24,31 @@
     "react-native-video": "^5.0.2",
     "react-native-web": "~0.11.7",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "react-navigation": "^4.0.10",
     "react-navigation-stack": "^1.10.3",
 =======
     "rm": "^0.1.8",
 >>>>>>> 8c28ddbe545b4a97f98e1b825ca1bf823c314209
+=======
+    "react-navigation": "^4.0.10",
+    "react-navigation-stack": "^1.10.3",
+    "rm": "^0.1.8",
+>>>>>>> 5cb477a1306d5d768604702d1c039f91e5412eae
     "rn-spotify-sdk": "^1.2.13",
     "watchman": "^1.0.0",
     "yarn": "^1.21.1",
-    "react-navigation": "^4.0.10",
     "styled-components": "^4.4.1",
+<<<<<<< HEAD
 <<<<<<< HEAD
     "wrapper": "^0.1.0"
 =======
     "wrapper": "^0.1.0",
     "react-navigation-stack": "^1.10.3"
 >>>>>>> 8c28ddbe545b4a97f98e1b825ca1bf823c314209
+=======
+    "wrapper": "^0.1.0",
+>>>>>>> 5cb477a1306d5d768604702d1c039f91e5412eae
   },
   "devDependencies": {
     "babel-preset-expo": "~8.0.0"
