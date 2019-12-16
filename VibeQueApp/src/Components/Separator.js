@@ -7,7 +7,7 @@ export default () => (
       height: 1,
       backgroundColor: 'green',
       marginTop: 10,
-      marginBottom: 10,
+      marginBottom: 10
     }}
   />
 );
