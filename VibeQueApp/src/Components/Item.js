@@ -1,8 +1,6 @@
-import React, { Component } from 'react';
-
+import React from 'react';
 import postSong from '../Components/serviceClient';
 
-// import postSong from '../api/token';
 import {
   View,
   Text,
@@ -11,6 +9,8 @@ import {
   TouchableOpacity,
   Alert
 } from 'react-native';
+// import postSong from '../api/token';
+const url = 'http://localhost:3000/api/songrequest';
 
 const styles = StyleSheet.create({
   container: {
@@ -26,15 +26,6 @@ const styles = StyleSheet.create({
   text: {}
 });
 
-//SongUrl callback:
-
-handleClick = songUrl => {
-  console.log('url:');
-  console.log(songUrl);
-
-  // addSong(songUrl);
-};
-
 // addSong = songUrl => {
 //   postSong(songUrl).then(answer => {
 //     console.log('Addsongissa:' + songUrl);
@@ -42,15 +33,22 @@ handleClick = songUrl => {
 // };
 
 //bindauksella voisi käyttää myös muissa componenteissa:
-this.handleClick = this.handleClick.bind(this);
-
-var addSong;
-let songUrl;
+//this.handleClick = this.handleClick.bind(this);
+//Ip address
+//var addSong;
 
 export default ({ item: { imageUri, title, type, name, previewUrl } }) => (
   <TouchableOpacity
     onPress={() => {
-      songUrl = previewUrl;
+      handleClick = songUrl => {
+        console.log('url: ' + songUrl);
+        postSong(songUrl).then(res => {
+          console.log('Server response: ' + res)
+        });
+
+        // addSong(songUrl);
+      };
+
       Alert.alert(
         'Set you entrance song to be: ',
         '' + name + ' - ' + title + '',
@@ -63,12 +61,17 @@ export default ({ item: { imageUri, title, type, name, previewUrl } }) => (
           {
             text: 'OK',
             onPress: () => {
-              this.handleClick(songUrl);
+              if (previewUrl) {
+                handleClick(previewUrl);
+              } else {
+                console.log('No url yet')
+              }
             }
           }
         ]
       );
     }}
+
   >
     <View style={styles.container}>
       <Image source={{ uri: imageUri }} style={styles.image} />
