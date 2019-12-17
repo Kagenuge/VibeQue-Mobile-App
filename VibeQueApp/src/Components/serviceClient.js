@@ -1,5 +1,5 @@
 //const ngrokUrl = 'http://48959761.ngrok.io/api/songrequest'
-const ipAddr = 'http://10.100.104.25:3000/api/songrequest'
+const ipAddr = 'http://10.100.104.64:3000/api/songrequest'
 
 const postSong = (songUrl) => {
   try {
