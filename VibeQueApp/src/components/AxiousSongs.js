@@ -27,6 +27,7 @@ export default class AxiousSongs extends React.Component {
   render() {
     if (this.state.isLoading) {
       return (
+        
         <View style={{ flex: 1, padding: 20 }}>
           <ActivityIndicator />
         </View>

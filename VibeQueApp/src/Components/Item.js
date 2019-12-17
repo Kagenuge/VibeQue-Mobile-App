@@ -30,14 +30,6 @@ const styles = StyleSheet.create({
 
 });
 
-// addSong = songUrl => {
-//   postSong(songUrl).then(answer => {
-//     console.log('Addsongissa:' + songUrl);
-//   });
-// };
-
-//bindauksella voisi käyttää myös muissa componenteissa:
-
 export default ({ item: { imageUri, title, type, name, previewUrl } }) => (
   <TouchableOpacity
     onPress={() => {
@@ -83,6 +75,3 @@ export default ({ item: { imageUri, title, type, name, previewUrl } }) => (
   </TouchableOpacity>
 );
 
-// let url;
-// export default ({ item: { imageUri, title, type, name, previewUrl } }) => (
-//   <TouchableOpacity onPress={() => {url = previewUrl, Alert.alert(url)}}></TouchableOpacity>

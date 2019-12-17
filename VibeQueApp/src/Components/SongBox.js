@@ -101,6 +101,6 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     justifyContent: 'flex-start',
     padding: 10,
-    paddingTop: 1
+    paddingTop: 4
   }
 });
