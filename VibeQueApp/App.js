@@ -11,8 +11,8 @@ class HomeScreen extends React.Component {
       // </View>
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'black'}}>
                 <Image
-          style={{width: 350, height: 80, marginTop: 100}}
-          source={require('./src/assets/images/logo1')}
+          style={{width: 350, height: 80, marginTop: 50}}
+          source={require('./src/pics/logo1.png')}
         />
         <SongBox />
       </View>

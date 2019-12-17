@@ -30,7 +30,6 @@ export default async ({ offset, limit, q, token }) => {
   };
 
   const onlyWithUrl = items.filter(filterByPreviewUrl);
-  console.log('SPÄGÄGÄGÄ' + JSON.stringify(onlyWithUrl));
   return onlyWithUrl.map(item => ({
     id: item.id,
     title: item.name,

@@ -1,7 +1,5 @@
-const url = 'http://localhost:3000/api/songrequest';
-const ngrokUrl = 'http://48959761.ngrok.io/api/songrequest'
-const ipAddr = 'http://10.100.104.25:3000/api/songrequest'
-const openportUrl = 'http://www.openport.io:6572/api/songrequest'
+//const ngrokUrl = 'http://48959761.ngrok.io/api/songrequest'
+const ipAddr = 'http://10.100.104.64:3000/api/songrequest'
 
 const postSong = (songUrl) => {
   try {
@@ -11,7 +9,7 @@ const postSong = (songUrl) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ trackUrl: songUrl })
     }).then(res=> {
-      console.log("POST RES", res)
+      console.log("POST RES: ", res.json())
        return res;})
   } catch (err) {
     console.log(err)
