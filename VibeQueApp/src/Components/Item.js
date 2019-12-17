@@ -43,12 +43,9 @@ export default ({ item: { imageUri, title, type, name, previewUrl } }) => (
     onPress={() => {
       handleClick = songUrl => {
         console.log('url: ' + songUrl);
-        postSong(songUrl).then(res => {
-          console.log('Server response: ' + res)
-        });
-
+        postSong(songUrl);
         // addSong(songUrl);
-      };
+      }
 
       Alert.alert(
         'Set you entrance song to be: ',
