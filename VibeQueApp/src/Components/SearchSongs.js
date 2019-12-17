@@ -3,7 +3,7 @@ import { View, Text, TextInput, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   text: {
-    marginTop: 30,
+    marginTop: 15,
     justifyContent: 'center',
     textAlign: 'center',
     fontStyle: 'italic',
@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
     height: 40,
     color: 'white',
     padding: 10,
-    marginBottom: 25,
-    marginTop: 10
+    marginBottom: 15,
+    marginTop: 12
   },
   container: {}
 });
