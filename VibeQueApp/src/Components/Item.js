@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'black'
   },
   image: {
-    width: 100,
-    height: 100,
+    width: 75,
+    height: 75,
     marginRight: 10
   },
 
@@ -77,9 +77,9 @@ export default ({ item: { imageUri, title, type, name, previewUrl } }) => (
     <View style={styles.container}>
       <Image source={{ uri: imageUri }} style={styles.image} />
 
-      <Text style={styles.text}>{name} -</Text>
-      <Text> {'\n'} </Text>
-      <Text style={styles.text}>{title}</Text>
+      <Text style={styles.text}>{name}
+      {"\n"}
+      {title}</Text>
       <Text style={styles.text}>{type}</Text>
     </View>
   </TouchableOpacity>
