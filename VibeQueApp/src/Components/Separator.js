@@ -6,8 +6,8 @@ export default () => (
     style={{
       height: 3,
       backgroundColor: '#FF2B62',
-      marginTop: 20,
-      marginBottom: 20,
+      marginTop: 15,
+      marginBottom: 15,
 
     }}
   />

@@ -46,7 +46,7 @@ export default ({ item: { imageUri, title, type, name, previewUrl } }) => (
         postSong(songUrl);
         // addSong(songUrl);
       }
-
+      
       Alert.alert(
         'Set you entrance song to be: ',
         '' + name + ' - ' + title + '',
@@ -68,6 +68,7 @@ export default ({ item: { imageUri, title, type, name, previewUrl } }) => (
           }
         ]
       );
+
     }}
 
   >
