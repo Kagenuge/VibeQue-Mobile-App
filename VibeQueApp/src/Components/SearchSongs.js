@@ -13,7 +13,6 @@ const styles = StyleSheet.create({
     
   },
   input: {
-    justifyContent: 'center',
     alignSelf: 'center',
     borderWidth: 2,
     borderColor: '#FF2B62',
