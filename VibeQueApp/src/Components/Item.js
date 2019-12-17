@@ -1,5 +1,6 @@
 import React from 'react';
 import postSong from '../Components/serviceClient';
+import ModalPopup from './ModalPopup';
 
 import {
   View,
@@ -36,9 +37,9 @@ export default ({ item: { imageUri, title, type, name, previewUrl } }) => (
       handleClick = songUrl => {
         console.log('url: ' + songUrl);
         postSong(songUrl);
-        // addSong(songUrl);
+        //        toggleChosen();
       }
-      
+
       Alert.alert(
         'Set you entrance song to be: ',
         '' + name + ' - ' + title + '',
@@ -68,10 +69,9 @@ export default ({ item: { imageUri, title, type, name, previewUrl } }) => (
       <Image source={{ uri: imageUri }} style={styles.image} />
 
       <Text style={styles.text}>{name}
-      {"\n"}
-      {title}</Text>
+        {"\n"}
+        {title}</Text>
       <Text style={styles.text}>{type}</Text>
     </View>
   </TouchableOpacity>
 );
-

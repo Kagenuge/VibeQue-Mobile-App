@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
+import ModalPopup from './src/Components/ModalPopup';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 // import AppNavigator from './AppNavigator';
@@ -21,6 +22,7 @@ class HomeScreen extends React.Component {
         
         <SongBox />
         </LinearGradient>
+     {/*    <ModalPopup /> */}
       </View>
     );
   }
