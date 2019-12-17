@@ -10,18 +10,18 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 30,
     backgroundColor: 'black'
-    
+
   },
   input: {
-    justifyContent: 'center',
+    alignSelf: 'center',
     borderWidth: 2,
     borderColor: '#FF2B62',
     borderRadius: 10,
-    width: 400, 
+    width: 300,
     height: 40,
     color: 'white',
     padding: 10,
-    marginBottom: 10,
+    marginBottom: 50,
     marginTop: 10
   },
   container: {}
@@ -53,7 +53,7 @@ export default class SearchSongs extends Component {
     const { text } = this.state;
 
     return (
-      <View stlye={styles.container}>
+      <View style={styles.container}>
         <Text style={styles.text}>Type a song:</Text>
         <TextInput
           style={styles.input}

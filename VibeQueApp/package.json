@@ -40,5 +40,10 @@
   "version": "1.0.0",
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "rnpm": {
+    "assets": [
+      "./assets/fonts"
+    ]
+  }
 }
