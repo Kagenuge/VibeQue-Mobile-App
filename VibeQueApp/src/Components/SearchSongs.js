@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { View, Text, TextInput, StyleSheet, ImageBackground } from 'react-native';
+import { Input } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 const styles = StyleSheet.create({
   text: {
     marginTop: 15,
     justifyContent: 'center',
     textAlign: 'center',
-    fontStyle: 'italic',
-    color: 'white',
-    fontSize: 30,
+    color: '#FF2B62',
+    fontSize: 15,
     backgroundColor: 'black'
     
   },
@@ -16,13 +17,13 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderWidth: 2,
     borderColor: '#FF2B62',
-    borderRadius: 10,
-    width: 250, 
+    borderRadius: 20,
+    width: 270, 
     height: 40,
     color: 'white',
     padding: 10,
-    marginBottom: 15,
-    marginTop: 12
+    marginBottom: 30,
+    marginTop: 2
   },
   container: {}
 });
@@ -54,12 +55,16 @@ export default class SearchSongs extends Component {
 
     return (
       <View stlye={styles.container}>
-        <Text style={styles.text}>Type a song:</Text>
+
         <TextInput
           style={styles.input}
+          placeholder='Search for songs, albums, artists...'
+          placeholderTextColor='rgb(255, 141, 253)'
           value={text}
           onChangeText={text => this.handleChangeText(text)}
         />
+      
+ 
       </View>
     );
   }
