@@ -13,15 +13,15 @@ const styles = StyleSheet.create({
     
   },
   input: {
-    justifyContent: 'center',
+    alignSelf: 'center',
     borderWidth: 2,
     borderColor: '#FF2B62',
     borderRadius: 10,
-    width: 400, 
+    width: 250, 
     height: 40,
     color: 'white',
     padding: 10,
-    marginBottom: 10,
+    marginBottom: 25,
     marginTop: 10
   },
   container: {}
