@@ -28,14 +28,14 @@ export default class AxiousSongs extends React.Component {
     if (this.state.isLoading) {
       return (
         
-        <View style={{ flex: 1, padding: 20 }}>
+        <View style={styles.view}>
           <ActivityIndicator />
         </View>
       );
     }
 
     return (
-      <View style={{ flex: 1, paddingTop: 20, }}>
+      <View>
         <FlatList
           data={this.state.dataSource}
           renderItem={({ item }) => 
