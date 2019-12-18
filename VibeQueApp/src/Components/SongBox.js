@@ -1,24 +1,30 @@
 import React from 'react';
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 import SearchSongs from './SearchSongs';
-// import searchMock from './src/api/searchMock';
 import Listing from './Listing';
-
-// production Spotify APIs
 import token from '../api/token';
 import search from '../api/search';
 
 const PAGE = 20;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'black',
+    alignItems: 'stretch',
+    justifyContent: 'flex-start',
+    padding: 10,
+    paddingTop: 4
+  }
+});
 
 export default class SongBox extends React.Component {
   constructor() {
     super();
-
     this.state = {
       items: [],
       offset: 0,
       isFetching: false,
-      query: 'Kendrick',
+      query: 'daft punk',
       token: null
     };
   }
@@ -34,7 +40,7 @@ export default class SongBox extends React.Component {
     if (this.state.isFetching) {
       console.log('already fetching');
       return;
-    }
+  }
 
     this.setState({ isFetching: true });
 
@@ -81,12 +87,9 @@ export default class SongBox extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Text>Welcome to VibeQue!</Text>
-
         <SearchSongs onChange={text => this.handleSearchChange(text)} />
         {isFetching && items.length === 0 ? (
-          <ActivityIndicator />
-        ) : (
+          <ActivityIndicator />): (
           <Listing items={items} onEndReached={() => this.handleEndReached()} />
         )}
       </View>
@@ -94,13 +97,4 @@ export default class SongBox extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'black',
-    alignItems: 'stretch',
-    justifyContent: 'flex-start',
-    padding: 10,
-    paddingTop: 4
-  }
-});
+

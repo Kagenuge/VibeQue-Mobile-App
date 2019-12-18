@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, StyleSheet, ImageBackground } from 'react-native';
-import { Input } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome'
+import { View, TextInput, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   text: {
@@ -23,7 +21,7 @@ const styles = StyleSheet.create({
     color: 'white',
     padding: 10,
     marginBottom: 30,
-    marginTop: 2
+    marginTop: 20
   },
   container: {}
 });
@@ -31,7 +29,6 @@ const styles = StyleSheet.create({
 export default class SearchSongs extends Component {
   constructor() {
     super();
-
     this.state = {
       text: ''
     };
@@ -39,7 +36,6 @@ export default class SearchSongs extends Component {
 
   handleChangeText(text) {
     const { onChange } = this.props;
-
     this.setState(
       {
         text
@@ -52,10 +48,8 @@ export default class SearchSongs extends Component {
 
   render() {
     const { text } = this.state;
-
     return (
       <View stlye={styles.container}>
-
         <TextInput
           style={styles.input}
           placeholder='Search for songs, albums, artists...'
@@ -63,8 +57,6 @@ export default class SearchSongs extends Component {
           value={text}
           onChangeText={text => this.handleChangeText(text)}
         />
-      
- 
       </View>
     );
   }

@@ -1,6 +1,5 @@
 import React from 'react';
 import postSong from '../Components/serviceClient';
-import ModalPopup from './ModalPopup';
 
 import {
   View,
@@ -10,7 +9,6 @@ import {
   TouchableOpacity,
   Alert
 } from 'react-native';
-// import postSong from '../api/token';
 const url = 'http://localhost:3000/api/songrequest';
 
 const styles = StyleSheet.create({
@@ -37,14 +35,11 @@ export default ({ item: { imageUri, title, type, name, previewUrl } }) => (
       handleClick = songUrl => {
         console.log('url: ' + songUrl);
         postSong(songUrl);
-        //        toggleChosen();
       }
-
       Alert.alert(
         'Set you entrance song to be: ',
         '' + name + ' - ' + title + '',
-        [
-          {
+        [{
             style: 'destructive',
             text: 'Cancel',
             onPress: () => console.log('Cancel Pressed')
@@ -61,16 +56,14 @@ export default ({ item: { imageUri, title, type, name, previewUrl } }) => (
           }
         ]
       );
-
-    }}
-
-  >
+    }}>
     <View style={styles.container}>
       <Image source={{ uri: imageUri }} style={styles.image} />
 
       <Text style={styles.text}>{name}
         {"\n"}
-        {title}</Text>
+        {title}
+        </Text>
       <Text style={styles.text}>{type}</Text>
     </View>
   </TouchableOpacity>
