@@ -2,12 +2,23 @@ import React, { Component } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-  text: {},
+  text: {
+    marginTop: 30,
+    justifyContent: 'center',
+    textAlign: 'center',
+    fontStyle: 'italic',
+    color: 'white',
+    fontSize: 30,
+    backgroundColor: 'black'
+  },
   input: {
-    borderWidth: 1,
-    borderColor: 'green',
-    borderRadius: 20,
+    justifyContent: 'center',
+    borderWidth: 2,
+    borderColor: '#FF2B62',
+    borderRadius: 10,
+    width: 400,
     height: 40,
+    color: 'white',
     padding: 10,
     marginBottom: 10,
     marginTop: 10
@@ -42,9 +53,10 @@ export default class SearchSongs extends Component {
 
     return (
       <View stlye={styles.container}>
-        <Text stlye={styles.text}>You can search here:</Text>
+        <Text style={styles.text}>Type a song:</Text>
         <TextInput
           style={styles.input}
+          placeholder='Enter your song'
           value={text}
           onChangeText={text => this.handleChangeText(text)}
         />
