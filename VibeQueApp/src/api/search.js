@@ -17,20 +17,16 @@ export default async ({ offset, limit, q, token }) => {
   if (!res.ok) {
     return [];
   }
-
   const {
     tracks: { items }
   } = json;
   // const items = json.tracks.items;
-
   const filterByPreviewUrl = item => {
     if (item.preview_url) {
       return item;
     }
   };
-
   const onlyWithUrl = items.filter(filterByPreviewUrl);
-  console.log('SPÄGÄGÄGÄ' + JSON.stringify(onlyWithUrl));
   return onlyWithUrl.map(item => ({
     id: item.id,
     title: item.name,

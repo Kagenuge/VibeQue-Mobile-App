@@ -29,32 +29,14 @@ const styles = StyleSheet.create({
   }
 });
 
-// addSong = songUrl => {
-//   postSong(songUrl).then(answer => {
-//     console.log('Addsongissa:' + songUrl);
-//   });
-// };
-
-// changeColor = () => {
-//   const colorArray = this.state.colors;
-//   var currentColor = colorArray[Math.floor(Math.random() * colorArray.length)];
-//   this.setState({ buttonColor: currentColor });
-//   console.log('toimiiiii');
-// };
-
-export default ({ item: { id, imageUri, title, type, name, previewUrl } }) => (
+export default ({ item: { imageUri, title, type, name, previewUrl } }) => (
   <TouchableOpacity
     // style={{ backgroundColor: this.state.buttonColor, padding: 15 }}
     onPress={() => {
       handleClick = songUrl => {
         console.log('url: ' + songUrl);
-        style.container.backgroundColor = 'green';
-
         postSong(songUrl);
-        console.log('toimiiiii');
-        // addSong(songUrl);
-        // this.changeColor();
-        // console.log('toimiiiii');
+        //        toggleChosen();
       };
 
       Alert.alert(
@@ -78,16 +60,12 @@ export default ({ item: { id, imageUri, title, type, name, previewUrl } }) => (
           }
         ]
       );
-      // state = {
-      //   colors: ['green', 'blue', 'yellow', 'red'],
-      //   buttonColor: 'blue'
-      // };
     }}
   >
     <View style={styles.container}>
       <Image source={{ uri: imageUri }} style={styles.image} />
 
-      <Text style={styles.text} id={id}>
+      <Text style={styles.text}>
         {name}
         {'\n'}
         {title}
@@ -96,7 +74,3 @@ export default ({ item: { id, imageUri, title, type, name, previewUrl } }) => (
     </View>
   </TouchableOpacity>
 );
-
-// let url;
-// export default ({ item: { imageUri, title, type, name, previewUrl } }) => (
-//   <TouchableOpacity onPress={() => {url = previewUrl, Alert.alert(url)}}></TouchableOpacity>

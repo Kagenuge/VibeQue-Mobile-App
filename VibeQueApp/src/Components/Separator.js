@@ -4,11 +4,10 @@ import { View } from 'react-native';
 export default () => (
   <View
     style={{
-      height: 3,
+      height: 2,
       backgroundColor: '#FF2B62',
-      marginTop: 20,
-      marginBottom: 20,
-
+      marginTop: 10,
+      marginBottom: 10,
     }}
   />
 );

@@ -24,14 +24,15 @@
 //       });
 //   }
 
-//   render() {
-//     if (this.state.isLoading) {
-//       return (
-//         <View style={{ flex: 1, padding: 20 }}>
-//           <ActivityIndicator />
-//         </View>
-//       );
-//     }
+// render() {
+//   if (this.state.isLoading) {
+//     return (
+
+//       <View style={{ flex: 1, padding: 20 }}>
+//         <ActivityIndicator />
+//       </View>
+//     );
+//   }
 
 //     return (
 //       <View style={{ flex: 1, paddingTop: 20, }}>

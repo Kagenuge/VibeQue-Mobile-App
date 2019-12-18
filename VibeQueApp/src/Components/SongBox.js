@@ -19,9 +19,7 @@ export default class SongBox extends React.Component {
       offset: 0,
       isFetching: false,
       query: 'Kendrick',
-      token: null,
-      color: null,
-      backgroundColor: null
+      token: null
     };
   }
 
@@ -103,6 +101,6 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     justifyContent: 'flex-start',
     padding: 10,
-    paddingTop: 1
+    paddingTop: 4
   }
 });
